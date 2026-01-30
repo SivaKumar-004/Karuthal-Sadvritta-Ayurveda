@@ -103,9 +103,21 @@
                 </div>
             </div>
 
-            <p class="text-xs text-center text-gray-400 mt-8">
-                Changes are saved automatically to this browser.
-            </p>
+            <div class="pt-6 border-t mt-8">
+                <button type="button" onclick="saveToProject()"
+                    class="w-full bg-primary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Save Changes to Project (For Everyone)
+                </button>
+                <p class="text-xs text-center text-gray-500 mt-3">
+                    Click this to save changes to the source code. You must then push to GitHub to update the live site.
+                </p>
+            </div>
         </form>
     </div>
 
@@ -113,7 +125,6 @@
     <script src="js/workshop-data.js"></script>
     <script>
         // --- Authentication Logic ---
-        // Simple direct check for reliability
         const ACCESS_PASS = "sadvritta";
 
         function handleLogin(e) {
@@ -141,10 +152,7 @@
             location.reload();
         }
 
-        // Check Access on Load - REMOVED for strict locking
-        // if (sessionStorage.getItem('adminAuth') === 'true') {
-        //     unlockInterface();
-        // }
+        // Strict Locking: No auto-unlock on load
 
         // --- Data Logic ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -158,15 +166,99 @@
             if (data.seats) document.getElementById('seats').value = data.seats;
         });
 
-        function saveAndSync() {
-            const data = {
+        function getData() {
+            return {
                 date: document.getElementById('date').value,
                 time: document.getElementById('time').value,
                 location: document.getElementById('location').value,
                 seats: document.getElementById('seats').value,
                 status: document.getElementById('status').value
             };
+        }
+
+        function saveAndSync() {
+            const data = getData();
             localStorage.setItem('workshopData', JSON.stringify(data));
+        }
+
+        async function saveToProject() {
+            const data = getData();
+
+            // Generate the file content with the NEW defaults
+            const fileContent = `// Default Configuration (Fallback)
+const defaultData = {
+    date: "${data.date}",
+    time: "${data.time}",
+    location: "${data.location}",
+    seats: "${data.seats}",
+    status: "${data.status}"
+};
+
+// Global Variable for User Friendliness (exposed to window)
+window.workshopData = JSON.parse(localStorage.getItem('workshopData')) || defaultData;
+
+// Function to update the DOM elements
+function updateWorkshopDetails() {
+    window.workshopData = JSON.parse(localStorage.getItem('workshopData')) || defaultData;
+    
+    const elements = {
+        'ws-date': window.workshopData.date,
+        'ws-time': window.workshopData.time,
+        'ws-location': window.workshopData.location,
+        'ws-seats': window.workshopData.seats,
+        'ws-status': window.workshopData.status
+    };
+
+    for (const [id, value] of Object.entries(elements)) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
+    }
+    
+    document.querySelectorAll('.ws-date-text').forEach(el => el.textContent = window.workshopData.date);
+    document.querySelectorAll('.ws-seats-count').forEach(el => el.textContent = window.workshopData.seats);
+    document.querySelectorAll('.ws-location-text').forEach(el => el.textContent = window.workshopData.location);
+}
+
+window.addEventListener('storage', (e) => {
+    if (e.key === 'workshopData') updateWorkshopDetails();
+});
+
+document.addEventListener('DOMContentLoaded', updateWorkshopDetails);`;
+
+            // Try File System Access API
+            if ('showSaveFilePicker' in window) {
+                try {
+                    const handle = await window.showSaveFilePicker({
+                        suggestedName: 'workshop-data.js',
+                        types: [{ description: 'JavaScript File', accept: { 'text/javascript': ['.js'] } }],
+                    });
+                    const writable = await handle.createWritable();
+                    await writable.write(fileContent);
+                    await writable.close();
+                    alert('Project File Updated! Now trigger a deployment (git push) to make it live for users.');
+                    return;
+                } catch (err) {
+                    if (err.name !== 'AbortError') fallbackDownload(fileContent);
+                    return;
+                }
+            } else {
+                fallbackDownload(fileContent);
+            }
+        }
+
+        function fallbackDownload(content) {
+            const blob = new Blob([content], { type: "text/javascript" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "workshop-data.js";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert("Downloaded! Replace 'js/workshop-data.js' with this file to make changes permanent.");
         }
     </script>
 </body>
