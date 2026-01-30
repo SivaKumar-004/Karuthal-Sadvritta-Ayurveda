@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Admin Panel</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        primary: { DEFAULT: "hsl(143 33% 27%)", foreground: "hsl(0 0% 100%)" },
+                        secondary: { DEFAULT: "hsl(143 20% 90%)", foreground: "hsl(143 33% 15%)" },
+                        background: "hsl(30 33% 96%)",
+                        card: "hsl(0 0% 100%)",
+                        input: "hsl(143 10% 85%)"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background min-h-screen p-8 relative">
+
+    <!-- Login Overlay -->
+    <div id="loginOverlay"
+        class="fixed inset-0 z-50 bg-background/95 backdrop-blur-md flex items-center justify-center">
+        <div class="bg-card w-full max-w-sm p-8 rounded-xl shadow-2xl border border-border">
+            <h2 class="text-2xl font-black text-center text-primary mb-6">Admin Access</h2>
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-muted-foreground mb-1">Enter Password</label>
+                    <input type="password" id="passwordInput"
+                        class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                        placeholder="••••••••" required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-primary-foreground font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">
+                    Unlock Panel
+                </button>
+                <p id="loginError" class="text-destructive text-sm text-center hidden font-bold">Incorrect Password</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Admin Content (Blurred/Hidden initially) -->
+    <div id="adminContent"
+        class="max-w-2xl mx-auto bg-card rounded-xl shadow-lg p-8 border border-gray-200 transition-all duration-500 filter blur-sm pointer-events-none select-none">
+        <div class="flex items-center justify-between mb-2">
+            <h1 class="text-3xl font-black text-primary">Workshop Admin Panel</h1>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-sm font-bold text-primary hover:underline">Back to Website</a>
+                <button onclick="logout()" class="text-sm text-red-500 hover:text-red-700 font-bold">Lock Panel</button>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-8">Changes update the website automatically as you type.</p>
+
+        <form id="adminForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Workshop Status (Top Bar)</label>
+                <input type="text" id="status" oninput="saveAndSync()"
+                    class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                    value="Live In-Person Certified Workshop">
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Date</label>
+                    <input type="text" id="date" oninput="saveAndSync()"
+                        class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                        value="March 15-16, 2024">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Time</label>
+                    <input type="text" id="time" oninput="saveAndSync()"
+                        class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                        value="9:00 AM - 5:00 PM">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Location</label>
+                    <input type="text" id="location" oninput="saveAndSync()"
+                        class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                        value="Attingal">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Available Seats</label>
+                    <input type="text" id="seats" oninput="saveAndSync()"
+                        class="w-full px-4 py-3 rounded-lg border border-input focus:ring-2 focus:ring-primary focus:outline-none"
+                        value="50">
+                </div>
+            </div>
+
+            <p class="text-xs text-center text-gray-400 mt-8">
+                Changes are saved automatically to this browser.
+            </p>
+        </form>
+    </div>
+
+    <!-- Script to load existing data -->
+    <script src="js/workshop-data.js"></script>
+    <script>
+        // --- Authentication Logic ---
+        // Simple direct check for reliability
+        const ACCESS_PASS = "sadvritta";
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('loginError');
+
+            if (password === ACCESS_PASS) {
+                unlockInterface();
+                sessionStorage.setItem('adminAuth', 'true');
+            } else {
+                errorMsg.classList.remove('hidden');
+                document.getElementById('passwordInput').classList.add('border-destructive');
+            }
+        }
+
+        function unlockInterface() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+            const content = document.getElementById('adminContent');
+            content.classList.remove('blur-sm', 'pointer-events-none', 'select-none');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminAuth');
+            location.reload();
+        }
+
+        // Check Access on Load - REMOVED for strict locking
+        // if (sessionStorage.getItem('adminAuth') === 'true') {
+        //     unlockInterface();
+        // }
+
+        // --- Data Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const stored = JSON.parse(localStorage.getItem('workshopData'));
+            const data = stored || (window.workshopData ? window.workshopData : {});
+
+            if (data.status) document.getElementById('status').value = data.status;
+            if (data.date) document.getElementById('date').value = data.date;
+            if (data.time) document.getElementById('time').value = data.time;
+            if (data.location) document.getElementById('location').value = data.location;
+            if (data.seats) document.getElementById('seats').value = data.seats;
+        });
+
+        function saveAndSync() {
+            const data = {
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                location: document.getElementById('location').value,
+                seats: document.getElementById('seats').value,
+                status: document.getElementById('status').value
+            };
+            localStorage.setItem('workshopData', JSON.stringify(data));
+        }
+    </script>
+</body>
+
+</html>

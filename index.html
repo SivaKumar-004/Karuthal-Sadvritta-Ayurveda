@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SadvrittaAyurveda - Karuthal Sadvritta Ayurveda</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                container: {
+                    center: true,
+                    padding: "2rem",
+                    screens: {
+                        "2xl": "1400px",
+                    },
+                },
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "hsl(143 10% 85%)",
+                        input: "hsl(143 10% 85%)",
+                        ring: "hsl(143 33% 27%)",
+                        background: "hsl(30 33% 96%)",
+                        foreground: "hsl(143 33% 10%)",
+                        primary: {
+                            DEFAULT: "hsl(143 33% 27%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(143 20% 90%)",
+                            foreground: "hsl(143 33% 15%)",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(0 84.2% 60.2%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(30 15% 90%)",
+                            foreground: "hsl(0 0% 0%)",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(143 33% 27%)",
+                            foreground: "hsl(0 0% 100%)",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(0 0% 100%)",
+                            foreground: "hsl(143 33% 10%)",
+                        },
+                        card: {
+                            DEFAULT: "hsl(0 0% 100%)",
+                            foreground: "hsl(143 33% 10%)",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "0.5rem",
+                        md: "calc(0.5rem - 2px)",
+                        sm: "calc(0.5rem - 4px)",
+                    },
+                    animation: {
+                        scroll: 'scroll 40s linear infinite',
+                        'scroll-reverse': 'scroll-reverse 40s linear infinite',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'scroll-reverse': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-background text-foreground antialiased min-h-screen">
+
+    <!-- Hero Section -->
+    <section class="relative py-16 px-4 text-center">
+        <!-- Announcement Bar -->
+        <div class="mb-8">
+            <span class="inline-block bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium">
+                🔴 <span id="ws-status">Live In-Person Certified Workshop</span> | <span
+                    id="ws-location">Attingal</span>
+            </span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight max-w-4xl mx-auto">
+            Are You Missing the Ayurvedic<br />
+            <span class="text-gradient-primary">Wisdom That New Mothers Need?</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Join Our 1-Day Karuthal Prasava Raksha Workshop - Authentic Antenatal & Postnatal Ayurvedic Care
+        </p>
+
+        <!-- Video Player -->
+        <div class="max-w-3xl mx-auto mb-10">
+            <div
+                class="relative aspect-video bg-card rounded-xl overflow-hidden border border-border group cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div
+                        class="w-20 h-20 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 btn-glow">
+                        <i data-lucide="play" class="w-8 h-8 text-primary-foreground ml-1"></i>
+                    </div>
+                </div>
+                <div class="absolute bottom-4 left-4 text-left">
+                    <p class="text-sm text-muted-foreground">Watch the intro video</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            A Beginner-to-Clinical
+            <span class="text-foreground font-semibold"> 1 Day</span>
+            Certified Workshop for
+            <span class="text-foreground font-semibold">Antenatal and Postnatal </span>
+            Ayurvedic Care
+        </p>
+
+        <!-- CTA Button -->
+        <button
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold uppercase tracking-wide bg-primary text-primary-foreground h-14 px-10 btn-glow hover:scale-105 active:scale-100 transition-all duration-300">
+            RESERVE MY SPOT
+        </button>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 px-4 bg-card">
+        <div class="max-w-6xl mx-auto">
+
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-4">
+                What people are saying:
+            </h2>
+            <br>
+
+
+
+            <!-- Testimonial Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="bg-secondary rounded-xl p-6 border border-border hover:border-primary/50 transition-colors duration-300">
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                    </div>
+                    <p class="text-muted-foreground mb-6 leading-relaxed">
+                        "This workshop completely transformed how I run my business. The frameworks are immediately
+                        actionable."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            <span class="text-sm font-bold text-muted-foreground">S</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Sarah Mitchell</p>
+                            <p class="text-xs text-muted-foreground">CEO, TechVentures</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-secondary rounded-xl p-6 border border-border hover:border-primary/50 transition-colors duration-300">
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                    </div>
+                    <p class="text-muted-foreground mb-6 leading-relaxed">
+                        "Best investment I've made this year. Went from working 80hr weeks to 40 while doubling
+                        revenue."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            <span class="text-sm font-bold text-muted-foreground">J</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">James Rodriguez</p>
+                            <p class="text-xs text-muted-foreground">Founder, ScaleUp Labs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-secondary rounded-xl p-6 border border-border hover:border-primary/50 transition-colors duration-300">
+                    <div class="flex gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-primary fill-primary"></i>
+                    </div>
+                    <p class="text-muted-foreground mb-6 leading-relaxed">
+                        "The systems they teach are battle-tested. Finally feel like I own a business, not a job."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            <span class="text-sm font-bold text-muted-foreground">E</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Emily Chen</p>
+                            <p class="text-xs text-muted-foreground">Managing Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshop Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-4">
+                What you'll get at the in-person
+            </h2>
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-12 text-gradient-primary">
+                workshop:
+            </h2>
+
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Feature 1 -->
+                <div class="text-center group">
+
+                    <h3 class="text-xl font-bold mb-3">#1: Expert-Led Sessions & Demonstrations</h3>
+                    <img src="img/s1.jpeg" alt="ACQ Operators"
+                        class="w-full h-56 object-cover rounded-xl mb-6 shadow-sm border border-border group-hover:border-primary/50 transition-all duration-300">
+                    <p class="text-muted-foreground leading-relaxed">
+                        You'll experience live demonstrations and hands-on guidance. Everything from massage techniques
+                        for mother & baby, lactation counselling, yoga therapy, belly binding, guided meditation, and
+                        cupping for postpartum relief.
+
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="text-center group">
+
+                    <h3 class="text-xl font-bold mb-3">#2: Core Ayurvedic Protocols & Recipes</h3>
+                    <img src="img/a3.jpeg" alt="ACQ Scaling Framework"
+                        class="w-full h-56 object-cover rounded-xl mb-6 shadow-sm border border-border group-hover:border-primary/50 transition-all duration-300">
+                    <p class="text-muted-foreground leading-relaxed">
+                        We break down key antenatal & postnatal care: Soothika Paricharya (postpartum physiological &
+                        psychological benefits), Kikkisa Paricharya (anti-stretch mark oils, choornas, creams you can
+                        prepare in-clinic), antenatal diet protocols, postpartum recipes, and daily diet charts.
+
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="text-center group">
+
+                    <h3 class="text-xl font-bold mb-3">#3: 3-5 Practical Tools & Personalized Next Steps</h3>
+                    <img src="img/a2.jpeg" alt="Tactical Next Steps"
+                        class="w-full h-56 object-cover rounded-xl mb-6 shadow-sm border border-border group-hover:border-primary/50 transition-all duration-300">
+                    <p class="text-muted-foreground leading-relaxed">
+                        Leave with clear - actionable - next steps to implement in your practice. This includes a
+                        comprehensive care packet (protocols, recipes, techniques) that we help personalize to your
+                        clients, plus a BONUS Certificate (digital for online attendees) upon completion.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center">
+                <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold uppercase tracking-wide bg-primary text-primary-foreground h-14 px-10 btn-glow hover:scale-105 active:scale-100 transition-all duration-300">
+                    RESERVE MY SPOT
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Schedule Section -->
+    <section class="py-20 px-4 bg-card">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-12">
+                What actually happens in the <span class="text-gradient-gold">1 days?</span>
+            </h2>
+            <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                It's a fully hands-on workshop – no fluff.
+                Morning: Core antenatal theory + demos. Afternoon: Postnatal protocols practice, herbal prep, Q&A, and
+                personalization to your practice/clients.
+                Small group for real interaction.
+            </p>
+            <div class="space-y-8 mb-12">
+                <!-- Question 1 -->
+                <div class="bg-secondary rounded-xl p-6 border border-border">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-primary font-bold">Q1</span>
+                        </div>
+                        <div>
+
+                            <h3 class="text-xl font-bold mb-2">Who is this for?</h3>
+                            <p class="text-muted-foreground leading-relaxed">
+                                Beginners entering Ayurvedic postnatal care, practicing therapists wanting deeper
+                                prasava raksha skills, anyone interested in Ayurveda, or wellness pros serving new
+                                mothers.
+                                Ideal if you want authentic, clinical-level knowledge.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question 2 -->
+                <div class="bg-secondary rounded-xl p-6 border border-border">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-primary font-bold">Q2</span>
+                        </div>
+                        <div>
+
+                            <h3 class="text-xl font-bold mb-2">What do I walk away with?</h3>
+                            <p class="text-muted-foreground leading-relaxed">
+                                Armed with your diagnosis, we build your 90-day scaling roadmap. You'll get
+                                specific playbooks, templates, and the accountability structure to actually
+                                execute when you get home.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Question 3 -->
+                <div class="bg-secondary rounded-xl p-6 border border-border">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-primary font-bold">Q3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Investment?</h3>
+                            <p class="text-muted-foreground leading-relaxed">
+                                [Insert price or "Early bird / Standard" if set] – includes materials, certification,
+                                lunch, and lifetime access to updates/resources.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Details -->
+            <div class="bg-secondary/50 rounded-xl p-6 border border-border mb-8">
+                <h4 class="font-bold mb-4 text-center">ACQ Scaling Workshop Meeting</h4>
+                <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="calendar" class="w-5 h-5 text-primary"></i>
+                        <span class="text-muted-foreground ws-date-text">March 15-16, 2024</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-primary"></i>
+                        <span class="text-muted-foreground" id="ws-time">9:00 AM - 6:00 PM</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+                        <span class="text-muted-foreground ws-location-text">Las Vegas, NV</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="users" class="w-5 h-5 text-primary"></i>
+                        <span class="text-muted-foreground">Limited to <span id="ws-seats">50</span> seats</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center">
+                <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold uppercase tracking-wide bg-primary text-primary-foreground h-14 px-10 btn-glow hover:scale-105 active:scale-100 transition-all duration-300">
+                    RESERVE MY SPOT
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Image Marquee -->
+    <div class="marquee-container mb-12 relative overflow-hidden group">
+        <h2 class="text-3xl md:text-4xl font-black text-center mb-12">
+            Workshop Highlights
+        </h2>
+        <div class="marquee-content flex gap-4">
+            <!-- First set of images -->
+            <div class="flex gap-4 shrink-0 animate-scroll">
+                <img src="img/w1.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w2.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w3.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w4.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w5.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w6.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w7.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w8.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w9.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w10.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w11.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w12.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w13.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w14.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+            <!-- Duplicate set for infinite scroll -->
+            <div class="flex gap-4 shrink-0 animate-scroll" aria-hidden="true">
+                <img src="img/w1.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w2.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w3.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w4.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w5.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w6.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w7.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w8.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w9.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w10.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w11.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w12.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w13.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/w14.jpeg" alt="Workshop Highlight"
+                    class="h-48 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Image Marquee (Reverse st1-st7) -->
+    <div class="marquee-container mb-20 relative overflow-hidden group">
+        <h2 class="text-3xl md:text-4xl font-black text-center mb-12">
+            Student Transformations
+        </h2>
+        <div class="marquee-content flex gap-4">
+            <!-- First set of images -->
+            <div class="flex gap-4 shrink-0 animate-scroll-reverse">
+                <img src="img/st7.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st6.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st5.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st4.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st3.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st2.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st1.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st7.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st6.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st5.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st4.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st3.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st2.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st1.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+            <!-- Duplicate set for infinite scroll -->
+            <div class="flex gap-4 shrink-0 animate-scroll-reverse" aria-hidden="true">
+                <img src="img/st3.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st2.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st1.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st7.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st6.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st5.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st4.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st3.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st2.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st1.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st7.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st6.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st5.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st4.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st3.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st2.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="img/st1.jpeg" alt="Student Transformation"
+                    class="h-64 w-auto rounded-lg object-cover shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-12">
+                Frequently Asked Questions
+            </h2>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="accordion-item bg-card border border-border rounded-xl px-6" data-state="open">
+                    <button
+                        class="accordion-trigger w-full flex items-center justify-between py-5 text-left font-semibold hover:no-underline group">
+                        What actually happens in the 1 day workshop?
+                        <i data-lucide="chevron-down"
+                            class="chevron-icon w-4 h-4 shrink-0 transition-transform duration-200 text-muted-foreground group-hover:text-foreground"></i>
+                    </button>
+                    <div class="accordion-content text-muted-foreground">
+                        <div class="pb-5 leading-relaxed">
+                            It's a fully hands-on workshop – no fluff. Morning: Core antenatal theory + demos.
+                            Afternoon: Postnatal protocols practice, herbal prep, Q&A, and personalization to your
+                            practice/clients.
+                            Small group for real interaction.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item bg-card border border-border rounded-xl px-6" data-state="open">
+                    <button
+                        class="accordion-trigger w-full flex items-center justify-between py-5 text-left font-semibold hover:no-underline group">
+                        Who is this for?
+                        <i data-lucide="chevron-down"
+                            class="chevron-icon w-4 h-4 shrink-0 transition-transform duration-200 text-muted-foreground group-hover:text-foreground"></i>
+                    </button>
+                    <div class="accordion-content text-muted-foreground">
+                        <div class="pb-5 leading-relaxed">
+                            Beginners entering Ayurvedic postnatal care, practicing therapists wanting deeper prasava
+                            raksha skills, anyone interested in Ayurveda, or wellness pros serving new mothers.
+                            Ideal if you want authentic, clinical-level knowledge.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item bg-card border border-border rounded-xl px-6" data-state="open">
+                    <button
+                        class="accordion-trigger w-full flex items-center justify-between py-5 text-left font-semibold hover:no-underline group">
+                        What do I walk away with?
+                        <i data-lucide="chevron-down"
+                            class="chevron-icon w-4 h-4 shrink-0 transition-transform duration-200 text-muted-foreground group-hover:text-foreground"></i>
+                    </button>
+                    <div class="accordion-content text-muted-foreground">
+                        <div class="pb-5 leading-relaxed">
+                            Certification, full protocol manual, resource kit (herb lists, oil blends), 3–5 immediate
+                            next steps for your clients/practice, and the confidence to offer premium prasava raksha
+                            services.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item bg-card border border-border rounded-xl px-6" data-state="open">
+                    <button
+                        class="accordion-trigger w-full flex items-center justify-between py-5 text-left font-semibold hover:no-underline group">
+                        Investment?
+                        <i data-lucide="chevron-down"
+                            class="chevron-icon w-4 h-4 shrink-0 transition-transform duration-200 text-muted-foreground group-hover:text-foreground"></i>
+                    </button>
+                    <div class="accordion-content text-muted-foreground">
+                        <div class="pb-5 leading-relaxed">
+                            [Insert price or "Early bird / Standard" if set] – includes materials, certification, lunch,
+                            and lifetime access to updates/resources.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-20 px-4 bg-card border-t border-border">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-black mb-6">
+                Ready to Stop Being the Bottleneck?
+            </h2>
+
+            <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Join the next cohort of founders scaling their businesses with proven
+                frameworks from the Acquisition.com team.
+            </p>
+
+            <button
+                class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold uppercase tracking-wide bg-primary text-primary-foreground h-14 px-10 btn-glow hover:scale-105 active:scale-100 transition-all duration-300">
+                RESERVE MY SPOT
+                <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <p class="text-sm text-muted-foreground mt-6">
+                Only 50 seats available • Next workshop: March 15-16, 2024
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-border">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-xl font-black text-gradient-primary tracking-tight">
+                Karuthal Sadvritta Ayurveda
+            </div>
+
+            <div class="flex items-center gap-6 text-sm text-muted-foreground">
+                <a href="#" class="hover:text-foreground transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-foreground transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-foreground transition-colors">Contact</a>
+            </div>
+
+            <p class="text-sm text-muted-foreground">
+                © 2026 Karuthal Sadvritta Ayurveda. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Time-Delayed Popup -->
+    <div id="reservePopup"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-500">
+        <div class="bg-card w-full max-w-md p-8 rounded-2xl shadow-2xl transform scale-95 transition-transform duration-500"
+            id="reservePopupContent">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-2xl font-black text-primary">Don't Miss Out!</h3>
+                <button onclick="closePopup()" class="text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <p class="text-gray-600 mb-6">
+                Limited seats available for the upcoming Live Workshop. Secure your place now to avoid missing out!
+            </p>
+
+            <div class="flex gap-3">
+                <a href="#booking" onclick="closePopup()"
+                    class="flex-1 py-3 flex items-center justify-center font-bold text-white bg-primary rounded-lg hover:opacity-90 transition-opacity">
+                    Reserve My Spot
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Popup Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const popup = document.getElementById('reservePopup');
+                const content = document.getElementById('reservePopupContent');
+
+                popup.classList.remove('hidden');
+                // Small delay for transition
+                setTimeout(() => {
+                    popup.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                    content.classList.add('scale-100');
+                }, 10);
+            }, 8000); // 8 seconds
+        });
+
+        function closePopup() {
+            const popup = document.getElementById('reservePopup');
+            const content = document.getElementById('reservePopupContent');
+            popup.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 500);
+        }
+    </script>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+    <script src="js/workshop-data.js"></script>
+</body>
+
+</html>

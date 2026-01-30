@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Light Theme Colors */
+  --background: 30 33% 96%;
+  /* #faf5f0 */
+  --foreground: 143 33% 10%;
+  /* Dark green/black text for better contrast */
+
+  --card: 0 0% 100%;
+  /* White cards */
+  --card-foreground: 143 33% 10%;
+
+  --popover: 0 0% 100%;
+  /* White popover */
+  --popover-foreground: 143 33% 10%;
+
+  --primary: 143 33% 27%;
+  /* #2e5b3f Primary Green */
+  --primary-foreground: 0 0% 100%;
+  /* White text on primary */
+
+  --secondary: 143 20% 90%;
+  /* Very light green background */
+  --secondary-foreground: 143 33% 15%;
+
+  --muted: 30 15% 90%;
+  /* Warm gray/beige for muted backgrounds */
+  --muted-foreground: 0 0% 0%;
+  /* Muted text */
+
+  --accent: 143 33% 27%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 143 10% 85%;
+  /* Light border */
+  --input: 143 10% 85%;
+  --ring: 143 33% 27%;
+
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.text-gradient-primary {
+  /* Primary green gradient */
+  background: linear-gradient(135deg, hsl(143 33% 27%), hsl(143 40% 40%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-glow {
+  box-shadow: 0 4px 30px -5px hsl(143 33% 27% / 0.4);
+}
+
+.btn-glow:hover {
+  box-shadow: 0 6px 40px -5px hsl(143 33% 27% / 0.6);
+}
+
+/* Accordion Animation Styles */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-trigger[data-state="open"] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-item[data-state="open"] {
+  border-color: hsl(var(--primary) / 0.5);
+}
