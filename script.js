@@ -147,9 +147,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             images.forEach(img => {
                 img.style.cursor = 'zoom-in';
+
+                // Desktop Click
                 img.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent other clicks
+                    e.stopPropagation();
                     openModal(img.src);
+                });
+
+                // Mobile Tap Detection
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                img.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                img.addEventListener('touchend', (e) => {
+                    const touchEndX = e.changedTouches[0].screenX;
+                    const touchEndY = e.changedTouches[0].screenY;
+
+                    const diffX = Math.abs(touchEndX - touchStartX);
+                    const diffY = Math.abs(touchEndY - touchStartY);
+
+                    // If movement is small (< 10px), treat as tap
+                    if (diffX < 10 && diffY < 10) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openModal(img.src);
+                    }
                 });
             });
 
