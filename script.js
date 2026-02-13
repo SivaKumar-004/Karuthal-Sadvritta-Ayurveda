@@ -56,10 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.addEventListener('click', () => {
             video.muted = false;
             video.volume = 1.0;
-            video.currentTime = 0; // Restart video from beginning when unmuted? Or just let it continue? Usually continue is better, but sometimes restart is impactful. Let's just unmute. 
-            // Actually, let's restart if it's already playing to ensure they see the start with sound if it's an intro? 
-            // The user didn't specify restart, just "tap to unmute".
-            // However, usually these loops are short. Let's just unmute.
+            video.currentTime = 0;
 
             // Fade out overlay
             overlay.classList.add('opacity-0', 'pointer-events-none');
@@ -72,80 +69,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Testimonial Carousel Logic
+    // Testimonial Carousel Auto-Scroll Logic
     const track = document.getElementById('testimonial-track');
-    const slides = track ? Array.from(track.children) : [];
-    const nextButton = document.getElementById('next-testimonial');
-    const prevButton = document.getElementById('prev-testimonial');
-    const carouselContainer = document.getElementById('testimonial-carousel');
-    // Select dots correctly based on the container
-    const dotsNav = carouselContainer ? carouselContainer.querySelector('.flex.justify-center') : null;
-    const dots = dotsNav ? Array.from(dotsNav.children) : [];
 
-    if (track && slides.length > 0) {
-        let currentIndex = 0;
+    if (track) {
+        let scrollSpeed = 1; // Pixels per frame
+        let isPaused = false;
+        let animationId;
 
-        const getItemsPerScreen = () => window.innerWidth >= 768 ? 3 : 1;
-
-        const updateCarousel = (index) => {
-            const items = getItemsPerScreen();
-            const percent = 100 / items;
-            track.style.transform = `translateX(-${index * percent}%)`;
-
-            // Update dots
-            dots.forEach(dot => {
-                dot.classList.remove('bg-primary');
-                dot.classList.add('bg-border');
-            });
-            if (dots[index]) {
-                dots[index].classList.remove('bg-border');
-                dots[index].classList.add('bg-primary');
+        const autoScroll = () => {
+            if (!isPaused) {
+                track.scrollLeft += scrollSpeed;
+                // Seamless Loop Logic: Reset when scrolled past half content
+                if (track.scrollLeft >= (track.scrollWidth / 2)) {
+                    track.scrollLeft = 0;
+                }
             }
+            animationId = requestAnimationFrame(autoScroll);
         };
 
-        const nextSlide = () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel(currentIndex);
-        };
+        // Start animation
+        animationId = requestAnimationFrame(autoScroll);
 
-        const prevSlide = () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            updateCarousel(currentIndex);
-        };
+        // Pause on hover (Desktop)
+        track.addEventListener('mouseenter', () => isPaused = true);
+        track.addEventListener('mouseleave', () => isPaused = false);
 
-        window.addEventListener('resize', () => updateCarousel(currentIndex));
-
-        if (nextButton) nextButton.addEventListener('click', () => {
-            nextSlide();
-            resetAutoPlay();
+        // Pause on touch (Mobile Swipe)
+        track.addEventListener('touchstart', () => isPaused = true);
+        track.addEventListener('touchend', () => {
+            // Delay restart slightly to avoid conflict if user just lifted finger
+            setTimeout(() => isPaused = false, 1000);
         });
-
-        if (prevButton) prevButton.addEventListener('click', () => {
-            prevSlide();
-            resetAutoPlay();
-        });
-
-        // Dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                updateCarousel(currentIndex);
-                resetAutoPlay();
-            });
-        });
-
-        // Auto Play
-        let autoPlayInterval = setInterval(nextSlide, 5000); // 5 seconds
-
-        const resetAutoPlay = () => {
-            clearInterval(autoPlayInterval);
-            autoPlayInterval = setInterval(nextSlide, 5000);
-        };
-
-        // Pause on hover
-        if (carouselContainer) {
-            carouselContainer.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-            carouselContainer.addEventListener('mouseleave', () => resetAutoPlay());
-        }
     }
 });
