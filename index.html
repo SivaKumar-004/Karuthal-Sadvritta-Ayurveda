@@ -724,6 +724,16 @@
         }
     </script>
 
+    <!-- Fullscreen Image Modal -->
+    <div id="imageModal"
+        class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <button id="closeModal" class="absolute top-4 right-4 text-white hover:text-gray-300 focus:outline-none z-50">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <img id="modalImage" src="" alt="Full screen testimonial"
+            class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
+    </div>
+
     <!-- Custom Script -->
     <script src="script.js"></script>
     <script src="js/workshop-data.js"></script>

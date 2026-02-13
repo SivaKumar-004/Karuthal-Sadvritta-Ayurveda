@@ -96,10 +96,78 @@ document.addEventListener('DOMContentLoaded', () => {
         track.addEventListener('mouseleave', () => isPaused = false);
 
         // Pause on touch (Mobile Swipe)
-        track.addEventListener('touchstart', () => isPaused = true);
-        track.addEventListener('touchend', () => {
-            // Delay restart slightly to avoid conflict if user just lifted finger
-            setTimeout(() => isPaused = false, 1000);
+        let resumeTimeout;
+        track.addEventListener('touchstart', () => {
+            isPaused = true;
+            if (resumeTimeout) clearTimeout(resumeTimeout);
         });
+
+        track.addEventListener('touchend', () => {
+            // Delay restart to allow user to view content after swipe
+            resumeTimeout = setTimeout(() => {
+                isPaused = false;
+            }, 3000);
+        });
+
+        // ---------------------------------------------------------
+        // Full-screen Image Modal Logic
+        // ---------------------------------------------------------
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.querySelector('#imageModal img');
+        const closeModal = document.getElementById('closeModal');
+
+        if (modal && modalImg && closeModal) {
+            const images = track.querySelectorAll('img');
+
+            const openModal = (src) => {
+                isPaused = true;
+                if (resumeTimeout) clearTimeout(resumeTimeout);
+
+                modalImg.src = src;
+                modal.classList.remove('hidden');
+                // Force reflow
+                void modal.offsetWidth;
+
+                modal.classList.remove('opacity-0');
+                modalImg.classList.remove('scale-95');
+                modalImg.classList.add('scale-100');
+            };
+
+            const hideModal = () => {
+                modal.classList.add('opacity-0');
+                modalImg.classList.remove('scale-100');
+                modalImg.classList.add('scale-95');
+
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    isPaused = false;
+                    modalImg.src = '';
+                }, 300);
+            };
+
+            images.forEach(img => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent other clicks
+                    openModal(img.src);
+                });
+            });
+
+            closeModal.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                hideModal();
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) hideModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    hideModal();
+                }
+            });
+        }
     }
 });
