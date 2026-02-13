@@ -71,4 +71,81 @@ document.addEventListener('DOMContentLoaded', () => {
             video.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     }
+
+    // Testimonial Carousel Logic
+    const track = document.getElementById('testimonial-track');
+    const slides = track ? Array.from(track.children) : [];
+    const nextButton = document.getElementById('next-testimonial');
+    const prevButton = document.getElementById('prev-testimonial');
+    const carouselContainer = document.getElementById('testimonial-carousel');
+    // Select dots correctly based on the container
+    const dotsNav = carouselContainer ? carouselContainer.querySelector('.flex.justify-center') : null;
+    const dots = dotsNav ? Array.from(dotsNav.children) : [];
+
+    if (track && slides.length > 0) {
+        let currentIndex = 0;
+
+        const getItemsPerScreen = () => window.innerWidth >= 768 ? 3 : 1;
+
+        const updateCarousel = (index) => {
+            const items = getItemsPerScreen();
+            const percent = 100 / items;
+            track.style.transform = `translateX(-${index * percent}%)`;
+
+            // Update dots
+            dots.forEach(dot => {
+                dot.classList.remove('bg-primary');
+                dot.classList.add('bg-border');
+            });
+            if (dots[index]) {
+                dots[index].classList.remove('bg-border');
+                dots[index].classList.add('bg-primary');
+            }
+        };
+
+        const nextSlide = () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateCarousel(currentIndex);
+        };
+
+        const prevSlide = () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateCarousel(currentIndex);
+        };
+
+        window.addEventListener('resize', () => updateCarousel(currentIndex));
+
+        if (nextButton) nextButton.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+
+        if (prevButton) prevButton.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel(currentIndex);
+                resetAutoPlay();
+            });
+        });
+
+        // Auto Play
+        let autoPlayInterval = setInterval(nextSlide, 5000); // 5 seconds
+
+        const resetAutoPlay = () => {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        };
+
+        // Pause on hover
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+            carouselContainer.addEventListener('mouseleave', () => resetAutoPlay());
+        }
+    }
 });
